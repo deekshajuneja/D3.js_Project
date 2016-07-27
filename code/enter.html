@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="stylesheet" href="css/format.css">
+<meta charset="utf-8">
+<title>Enter Method</title>
+<script type="text/javascript" src="d3/d3.js"></script>
+<script
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"
+	type="text/javascript"></script>
+
+</head>
+<body>
+	<h1>
+		<br>The Enter Method<br>
+		<p>In d3, the enter() method is a very powerful tool for adding
+			DOM elements on the fly. By examining the code that created the
+			circles below, you can see that the first circle was explicitly
+			created, and the second circle was created through the data binding
+			after two seconds. There is a data array with two elements declared
+			at the beginning of the script. By binding this array to the visual
+			circle elements with the data() method, d3 will cycle through the
+			data elements and decide on what code to run. If the number of data
+			elements are greater than the number of existing DOM elements
+			specified by the selectAll() method, the enter() method's code will
+			be executed. This is why the second red circle is created and
+			inserted into the HTML file.</p>
+	</h1>
+	<input type="button" id=buttonEnterCode
+		value="Click here to toggle code">
+	<p id=enterCode>
+//Declare a data array with two elements.<br>
+var data = [10, 20];<br><br>
+
+//Make a svg canvas.<br>
+var canvas = d3.select("body")<br>
+----.append("svg")<br>
+----.attr("width", 700)<br>
+----.attr("height", 400);<br><br>
+
+//The explicitly defined circle.<br>
+var explicitCircle = canvas.append("circle")<br>
+----.attr("cx", 250)<br>
+----.attr("cy", 250)<br>
+----.attr("r", 100);<br><br>
+
+//After the delay, the data is bound to the circles in the DOM and <br>
+//enter creates more circles because of the data the circles represent.<br>
+setTimeout(function(){<br>
+----var bindCircles = canvas.selectAll("circle")<br>
+--------.data(data)<br>
+--------.enter()<br>
+------------.append("circle")<br>
+------------.attr("cx", 500)<br>
+------------.attr("cy", 250)<br>
+------------.attr("r", 100)<br>
+------------.attr("fill", "red");<br>
+}, 2000);
+	</p>
+	<br>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			var count = 0;
+			$("#enterCode").hide();
+
+			$("#buttonEnterCode").click(function() {
+				count++;
+				if (count % 2 != 0) {
+					$("#enterCode").show();
+				} else {
+					$("#enterCode").hide();
+				}
+			})
+		});
+	</script>
+	<script type="text/javascript" src="js/enter.js"></script>
+</body>
+</html>

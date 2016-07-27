@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<style>
+.axis path,.axis line {
+	fill: none;
+	stroke: black;
+}
+
+.axis text {
+	font-family: sans-serif;
+	font-size: 11px;
+}
+</style>
+<link rel="stylesheet" href="css/format.css">
+<meta charset="utf-8">
+<title>D3 Graphs</title>
+<script type="text/javascript" src="d3/d3.js"></script>
+</head>
+<body>
+	<h1>
+		<br>Randomized Colored Scalable Scatter Plot<br>
+		<p>with mouseover event on points</p>
+		<p>and mouse down selection of points.</p>
+	</h1>
+	<script type="text/javascript" src="js/scatter_plot.js"></script>
+	<input type="button" value="Reload Data" onClick="window.location.reload()">
+	<h1>
+		<br>Randomized Colored Bar Graph<br>
+		<p>with mouseover selection event on bars</p>
+		<p>and mouse out returning the bar color to normal.</p>
+	</h1>
+	<script type="text/javascript" src="js/bar_graph.js"></script>
+	<input type="button" value="Reload Data" onClick="window.location.reload()">
+	<br>
+	<br>
+</body>
+</html>

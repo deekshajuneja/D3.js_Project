@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="stylesheet" href="css/format.css">
+<meta charset="utf-8">
+<title>Exit Method</title>
+<script type="text/javascript" src="d3/d3.js"></script>
+<script
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"
+	type="text/javascript"></script>
+
+</head>
+<body>
+	<h1>
+		<br>The Exit Method<br>
+		<p>The exit() method is a very important feature to the d3
+			library. Let's say that you are trying to bind data to all circles in
+			the DOM, but you have more existing circles than you have data
+			elements. In the code below, there is a data array with one element
+			declared and two explicitly defined circles. After two seconds when
+			the data binding is executed, the update section is blank so the
+			first circle has no update. After that, the data elements have run
+			out and the code from the exit() method is executed for the remaining
+			existing DOM elements.</p>
+	</h1>
+	<input type="button" id=buttonExitCode
+		value="Click here to toggle code">
+	<p id=exitCode>
+//Declare a data array with one element.<br>
+var data = [10];<br><br>
+
+//Make a svg canvas.<br>
+var canvas = d3.select("body")<br>
+----.append("svg")<br>
+----.attr("width", 700)<br>
+----.attr("height", 400);<br><br>
+
+//The explicitly defined circle.<br>
+var explicitCircle = canvas.append("circle")<br>
+----.attr("cx", 250)<br>
+----.attr("cy", 250)<br>
+----.attr("r", 100);<br><br>
+
+//After the delay, the data is bound to the circles in the DOM.<br>
+//Since there are two circles already existing and only one data<br>
+//element, exit() will execute on all extra existing elements.<br>
+setTimeout(function(){<br>
+----var bindCircles = canvas.selectAll("circle")<br>
+--------.data(data)<br>
+--------.exit()<br>
+------------.attr("fill", "green");<br>
+}, 2000);
+	</p>
+	<br>
+	<script type="text/javascript">
+			$(document).ready(function() {
+				var count = 0;
+				$("#exitCode").hide();
+
+				$("#buttonExitCode").click(function() {
+					count++;
+					if (count % 2 != 0) {
+						$("#exitCode").show();
+					} else {
+						$("#exitCode").hide();
+					}
+				})
+			});
+	</script>
+	<script type="text/javascript" src="js/exit.js"></script>
+</body>
+</html>

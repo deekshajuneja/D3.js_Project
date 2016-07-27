@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Item Blur Effect with CSS3 and jQuery - Using Box Shadows, Transform and Transitions" />
+<meta name="keywords" content="blur, css3, transition, jquery, box shadow, text shadow, articles, scale, transform, animation" />
+
+<link rel="shortcut icon" href="../favicon.ico"> 
+<link rel="stylesheet" type="text/css" href="css/demo.css" />
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+
+<meta charset="utf-8" />
+<meta name="keywords" content="key, words" />
+<meta name="description" content="description" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="css/main.css" type="text/css" />
+<link href='http://fonts.googleapis.com/css?family=Droid+Sans|Oswald:300' rel='stylesheet' type='text/css'>
+<script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="js/modernizr-2.6.2.min.js"></script><!-- You will need Modernizr for the plugin to work. -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script><!-- You will need jQuery for the plugin to work. -->
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery-mousewheel/3.1.11/jquery.mousewheel.js"></script><!-- You will need mousewheel.js for the plugin to work. -->
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script><!-- You will need Easing for the plugin to work. -->
+<script type="text/javascript" src="js/ninjaScroll.js"></script><!-- This is the main script that I created to perform the scrolling functions -->
+<title>Portfolio 2</title>
+
+
+</head>
+
+<body>
+	<div id="navigation">
+	<div id="navone">
+		<a href="index.html">Home</a>
+		<a href="document.html">Document</a>
+		
+	</div>
+		
+		<div style="clear:both;"></div>
+	</div>
+	<div id="divToScroll">
+		<div class="mainpage" id="scrollOne">
+			<section style="background-color:#C0C0C0;" class="ss-window" id="link1"> <!-- Any container that you're going to make a scrollSnap section must have the class 'ss-window' -->
+				<div>
+					<h1>Welcome to Group 8's Project Home</h1>
+					<h2>Cool Examples using D3 to show how amazingly powerful data visualization can be!</h2>
+					<h3>By: Deeksha Juneja and Michael Rhodas</h3>
+				</div>
+				
+			</section>
+			
+			
+
+		</div>
+		<div class="mainpage" id="scrollTwo">
+		
+		<section style="background-color:#8dff61;" class="ss-window" id="link2">
+				<div class="container">	
+			<section class="ib-container" id="ib-container">
+				<article>
+					<header>
+						<h3><a target="_blank" href="Collision.html">Bubble Cutter</a></h3>
+						<span>Shape Collisions</span>
+					</header>
+					<p>Anamation Example of D3, Using the Mouse</p>
+				</article>
+				<article>
+					<header>
+						<h3><a target="_blank" href="chem.html">Compound Simulator</a></h3>
+						<span>Customize Visuals</span>
+					</header>
+					<p>Shows how one could make a useful, interactive, applet with D3</p>
+				</article>
+				<article>
+					<header>
+						<h3><a target="_blank" href="cluster_tree_main.html">Clusters and Trees</a></h3>
+						<span>Different Layout</span>
+					</header>
+					<p>Using D3, making a visual representation of a JSON formatted tree is made easy</p>
+				</article>
+				<article>
+					<header>
+						<h3><a target="_blank" href="graphs.html">Graphing</a></h3>
+						<span>Presentation Tool </span>
+					</header>
+					<p>This shows how to create and scale a scatter plot and bar graph using D3</p>
+				</article>
+				<article>
+					<header>
+						<h3><a target="_blank" href="data_binding.html">Data Binding</a></h3>
+						<span>Enter, Update, and Exit </span>
+					</header>
+					<p>Understand the concept of Data Binding in D3 with of Enter, Update and Exit</p>
+				</article>
+			</section>
+        </div>
+
+			</section>
+		
+		</div>
+		
+	</div>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-36251023-1']);
+  _gaq.push(['_setDomainName', 'jqueryscript.net']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+		<script type="text/javascript">
+			$(function() {
+				
+				var $container	= $('#ib-container'),
+					$articles	= $container.children('article'),
+					timeout;
+				
+				$articles.on( 'mouseenter', function( event ) {
+						
+					var $article	= $(this);
+					clearTimeout( timeout );
+					timeout = setTimeout( function() {
+						
+						if( $article.hasClass('active') ) return false;
+						
+						$articles.not( $article.removeClass('blur').addClass('active') )
+								 .removeClass('active')
+								 .addClass('blur');
+						
+					}, 65 );
+					
+				});
+				
+				$container.on( 'mouseleave', function( event ) {
+					
+					clearTimeout( timeout );
+					$articles.removeClass('active blur');
+					
+				});
+			
+			});
+		</script>
+</body>

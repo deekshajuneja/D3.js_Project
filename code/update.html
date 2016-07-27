@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="stylesheet" href="css/format.css">
+<meta charset="utf-8">
+<title>Update</title>
+<script type="text/javascript" src="d3/d3.js"></script>
+<script
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"
+	type="text/javascript"></script>
+
+</head>
+<body>
+	<h1>
+		<br>Updating Dom Elements<br>
+		<p>When binding data in d3, the library is smart enough to know
+			what code to execute depending on the number of data elements and the
+			number of existing DOM elements defind by the selectAll() method. If
+			you look at the code executed below, you can see that the first
+			circle is created with a black fill. After two seconds, the data
+			binding is executed and that existing shape is updated to blue. The
+			elements of the array are matched up to the existing elements first.
+			Then, if there are more data elements, the enter() method's code is
+			executed.</p>
+	</h1>
+	<input type="button" id=buttonUpdateCode
+		value="Click here to toggle code">
+	<p id=updateCode>
+//Declare a data array with two elements.<br>
+var data = [10, 20];<br><br>
+
+//Make a svg canvas.<br>
+var canvas = d3.select("body")<br>
+----.append("svg")<br>
+----.attr("width", 700)<br>
+----.attr("height", 400);<br><br>
+
+//The explicitly defined circle.<br>
+var explicitCircle = canvas.append("circle")<br>
+----.attr("cx", 250)<br>
+----.attr("cy", 250)<br>
+----.attr("r", 100);<br><br>
+
+//After the delay, the data is bound to the circles in the DOM and <br>
+//enter creates more circles because of the data the circles represent.<br>
+//In addition to this, before enter is executed, the existing DOM<br>
+//elements can be updated as well.<br>
+setTimeout(function(){<br>
+----var bindCircles = canvas.selectAll("circle")<br>
+--------.data(data)<br>
+--------//This is where the current elements are updated.<br>
+--------.attr("fill","blue")<br>
+--------.enter()<br>
+------------.append("circle")<br>
+------------.attr("cx", 500)<br>
+------------.attr("cy", 250)<br>
+------------.attr("r", 100)<br>
+------------.attr("fill", "red");<br>
+}, 2000);
+	</p>
+	<br>
+	<script type="text/javascript">
+			$(document).ready(function() {
+				var count = 0;
+				$("#updateCode").hide();
+
+				$("#buttonUpdateCode").click(function() {
+					count++;
+					if (count % 2 != 0) {
+						$("#updateCode").show();
+					} else {
+						$("#updateCode").hide();
+					}
+				})
+			});
+	</script>
+	<script type="text/javascript" src="js/update.js"></script>
+</body>
+</html>

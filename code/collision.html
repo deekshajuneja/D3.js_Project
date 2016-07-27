@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Collision</title>
+<link rel="stylesheet" href="css/main.css">
+<script type="text/javascript" src="d3/d3.js"></script>
+<meta charset="utf-8">
+</head>
+<body>
+<h1>
+		Collision
+		<p>Move the mouse through the circles to see their response to the mouse pointer.</p>
+	</h1>
+<script>
+/**
+ * A demonstration using D3 of the movement of circles when mouse is moved through them.
+ * Group 8
+ * By: Deeksha Juneja
+ */
+ // width and height of the page
+var width = 1200,
+    height = 700;
+//range, size and number of the circles
+var nodes = d3.range(300).map(function() { return {radius: Math.random() * 12 + 5}; }),
+    root = nodes[0],
+    color = d3.scale.category100();
+	//var color = d3.scale.ordinal().range(["#1f77b4", "#ff7f0e","#ffffff"]);
+
+root.radius = 0;
+root.fixed = true;
+//force is for implementing the gravity between the nodes
+var force = d3.layout.force()
+    .gravity(0.05)
+    .charge(function(d, i) { return i ? 0 : -2000; })
+    .nodes(nodes)
+    .size([width, height]);
+
+force.start();
+//svg canvas
+var svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+svg.selectAll("circle")
+    .data(nodes.slice(1))
+  .enter().append("circle")
+    .attr("r", function(d) { return d.radius; })
+    .style("fill", function(d, i) { return color(i % 20); });
+
+force.on("tick", function(e) {
+  var q = d3.geom.quadtree(nodes),
+      i = 0,
+      n = nodes.length;
+
+  while (++i < n) q.visit(collide(nodes[i]));
+
+  svg.selectAll("circle")
+      .attr("cx", function(d) { return d.x; })
+      .attr("cy", function(d) { return d.y; });
+});
+
+svg.on("mousemove", function() {
+  var p1 = d3.mouse(this);
+  root.px = p1[0];
+  root.py = p1[1];
+  force.resume();
+});
+//code to determine how nodes will move after colliding 
+function collide(node) {
+  var r = node.radius + 16,
+      nx1 = node.x - r,
+      nx2 = node.x + r,
+      ny1 = node.y - r,
+      ny2 = node.y + r;
+  return function(quad, x1, y1, x2, y2) {
+    if (quad.point && (quad.point !== node)) {
+      var x = node.x - quad.point.x,
+          y = node.y - quad.point.y,
+          l = Math.sqrt(x * x + y * y),
+          r = node.radius + quad.point.radius;
+      if (l < r) {
+        l = (l - r) / l * .5;
+        node.x -= x *= l;
+        node.y -= y *= l;
+        quad.point.x += x;
+        quad.point.y += y;
+      }
+    }
+    return x1 > nx2 || x2 < nx1 || y1 > ny2 || y2 < ny1;
+  };
+}
+
+</script>
+</html>
